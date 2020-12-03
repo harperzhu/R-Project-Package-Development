@@ -1,0 +1,16 @@
+Package: projectpackage
+Title: Package Building 
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Harper",
+           family = "Zhu",
+           role = c("aut", "cre"),
+           email = "harperzhu@yahoo.com")
+Description: What the package does (one paragraph).
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Suggests: 
+    testthat
