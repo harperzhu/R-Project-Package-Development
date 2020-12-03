@@ -8,6 +8,9 @@ my_pow(x, power = 2)
 }
 \arguments{
 \item{x}{input to be converted to the \code{power}}
+
+\item{power}{Numeric input for the power that \code{x} will be raised to
+defaults to \code{2}.}
 }
 \value{
 Numeric representing \code{x} raised to the power of \code{power}
@@ -16,8 +19,8 @@ Numeric representing \code{x} raised to the power of \code{power}
 This function power the input.
 }
 \examples{
-my_power(4)
-my_power(4, power =2)
+my_pow(4)
+my_pow(4, power =2)
 
 }
-\keyword{temperature}
+\keyword{power}
