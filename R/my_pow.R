@@ -7,6 +7,7 @@
 #'   defaults to \code{2}.
 #'
 #' @keywords power
+#'
 #' @return Numeric representing \code{x} raised to the power of \code{power}
 #'
 #' @examples
