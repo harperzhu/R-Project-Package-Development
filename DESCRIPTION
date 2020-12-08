@@ -6,8 +6,9 @@ Authors@R:
            family = "Zhu",
            role = c("aut", "cre"),
            email = "harperzhu@yahoo.com")
-Description: What the package does (one paragraph).
+Description: This package is used to predict the classification of a variable and print out misclassification error.
 License: GPL-3
+Imports:  ggplot2, dplyr
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

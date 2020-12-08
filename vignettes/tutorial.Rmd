@@ -2,6 +2,8 @@
 title: "Project 2: projectpackage Tutorial"
 output: rmarkdown::html_vignette
 vignette: >
+  %\VignetteIndexEntry{projectpackage Tutorial}
+
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

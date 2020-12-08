@@ -4,7 +4,7 @@
 #'
 #' @param k number of folds
 #'
-#' @keywords \code{random forest}
+#' @keywords {random forest}
 #'
 #' @return a numeric with the cross-validation error
 #'
