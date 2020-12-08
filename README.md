@@ -17,6 +17,7 @@ help(package = "projectpackage", help_type = "html")
 utils::browseVignettes(package = "projectpackage")
 ```
 
+## Installation ##
 ```{r}
 To download the corncob package, use the code below.
 
