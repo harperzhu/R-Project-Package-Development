@@ -2,9 +2,8 @@
   [![Travis build status](https://travis-ci.com/harperzhu/projectpackage.svg?branch=master)](https://travis-ci.com/harperzhu/projectpackage)
   [![Codecov test coverage](https://codecov.io/gh/harperzhu/projectpackage/branch/master/graph/badge.svg)](https://codecov.io/gh/harperzhu/projectpackage?branch=master)
   <!-- badges: end -->
-##use##
+## use ##
 ``` r
-##use
 The vignette demonstrates example usage of all main functions. 
 Please file an issue if you have a request for a tutorial that is not currently included. 
 You can see the vignette by using the following code (note that this requires a TeX installation to view properly):
