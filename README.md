@@ -6,9 +6,7 @@
   
   ## Projectpackage ##
 
-```{r}
 projectpackage is an R package for cross validation classification, t- test and testing hypotheses.
-```
 
 ## use ##
 
