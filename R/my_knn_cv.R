@@ -7,7 +7,7 @@
 #' @param k_nn integer representing the number of neighbors
 #' @param k_cv integer representing the number of folds
 #'
-#' @keywords \code{knn}
+#' @keywords \code{prediction}
 #'
 #' @return return a list with objects class (a vector of the predicted class for all observation)
 #' and cv_err as the numeric with the cross-validation misclassification error

@@ -5,7 +5,7 @@
 #' @param formula a formula class object, similar to lm().
 #' @param data input data frame.
 #'
-#' @keywords \code{lm}
+#' @keywords \code{inference}
 #'
 #' @return table similar to the coefficent table from summary() with rows for each coefficient
 #' and columns for the Estimate, Std. Error, t value, and Pr(>|t|).
