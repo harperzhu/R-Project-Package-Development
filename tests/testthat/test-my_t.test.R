@@ -8,5 +8,3 @@ test_that("t test works for hypothesis", {
 # test_that("non-numeric input throws error", {
 #         expect_error(f_to_c("a string"))
 # })
-
-
