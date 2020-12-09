@@ -34,4 +34,4 @@ rownames(my_table) <- c("cv_err", "training_err")
 my_table
 
 }
-\keyword{\code{knn}}
+\keyword{\code{prediction}}

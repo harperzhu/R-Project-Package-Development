@@ -27,4 +27,4 @@ my_t_test(x = rnorm(100), alternative = "less", mu = 0 )
 my_t_test(x = rnorm(100), alternative = "greater", mu = 0 )
 
 }
-\keyword{\code{t_test}}
+\keyword{{inference}}

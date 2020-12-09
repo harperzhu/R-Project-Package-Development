@@ -23,4 +23,4 @@ my_lm (mpg ~ hp + wt, data = mtcars)
 my_lm()
 
 }
-\keyword{\code{lm}}
+\keyword{\code{inference}}
