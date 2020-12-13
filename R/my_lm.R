@@ -12,11 +12,9 @@
 #'
 #' @examples
 #' my_lm (mpg ~ hp + wt, data = mtcars)
-#' my_lm() *ADD EXAMPLE HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*
 #'
 #' @export
 my_lm <- function(formula, data) {
-        library(dplyr)
         #Create a model matrix and response through helper functions
         x <- model.matrix(formula, data)
         y <- model.response(model.frame(formula, data))

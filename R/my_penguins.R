@@ -3,7 +3,8 @@
 #' Includes measurements for penguin species, island in Palmer Archipelago,
 #' size (flipper length, body mass, bill dimensions), and sex.
 #' This data and documentation come from the \code{palmerpenguins} package,
-#' available as \code{\link[palmerpenguins]{penguins}}.
+#' available as \code{\link[palmerpenguins]{penguins}}
+#'
 #'
 #' @format A tibble with 344 rows and 8 variables:
 #' \describe{

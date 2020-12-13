@@ -20,7 +20,6 @@ This function fits a linear model in R
 }
 \examples{
 my_lm (mpg ~ hp + wt, data = mtcars)
-my_lm() *ADD EXAMPLE HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*
 
 }
 \keyword{\code{inference}}

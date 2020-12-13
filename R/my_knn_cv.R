@@ -7,34 +7,38 @@
 #' @param k_nn integer representing the number of neighbors
 #' @param k_cv integer representing the number of folds
 #'
-#' @keywords {prediction}
+#' @import dplyr class
+#' tidyr::drop_na
+#'
+#' @keywords prediction
 #'
 #' @return return a list with objects class (a vector of the predicted class for all observation)
 #' and cv_err as the numeric with the cross-validation misclassification error
 #'
 #' @examples
-#'my_result_1 <- my_knn_cv(train = penguins, cl = penguins$species, k_nn = 1, k_cv = 5 )
-#'my_result_2 <- my_knn_cv(train = penguins, cl = penguins$species, k_nn = 5, k_cv = 5 )
-#'train_err_1 <- sum(as.numeric(penguins$species != my_result_1$class)) / nrow(penguins)
-#'train_err_2 <- sum(as.numeric(penguins$species != my_result_2$class)) / nrow(penguins)
-#'my_table_row_1 <- cbind("k_nn = 1" = my_result_1$cv_err, "k_nn = 5" = my_result_2$cv_err)
-#'my_table_row_2 <- cbind("k_nn = 1" = train_err_1, "k_nn = 5" = train_err_2)
-#'my_table <- rbind(my_table_row_1, my_table_row_2)
-#'rownames(my_table) <- c("cv_err", "training_err")
-#'my_table
+#' my_penguins <- tidyr::drop_na(my_penguins)
+#' my_result_1 <- my_knn_cv(train = my_penguins, cl = my_penguins$species, k_nn = 1, k_cv = 5 )
+#' my_result_2 <- my_knn_cv(train = my_penguins, cl = my_penguins$species, k_nn = 5, k_cv = 5 )
+#' train_err_1 <- sum(as.numeric(my_penguins$species != my_result_1$class)) / nrow(my_penguins)
+#' train_err_2 <- sum(as.numeric(my_penguins$species != my_result_2$class)) / nrow(my_penguins)
+#' my_table_row_1 <- cbind("k_nn = 1" = my_result_1$cv_err, "k_nn = 5" = my_result_2$cv_err)
+#' my_table_row_2 <- cbind("k_nn = 1" = train_err_1, "k_nn = 5" = train_err_2)
+#' my_table <- rbind(my_table_row_1, my_table_row_2)
+#' rownames(my_table) <- c("cv_err", "training_err")
+#' my_table
 #'
 #' @export
 my_knn_cv <- function(train, cl, k_nn, k_cv) {
         #Split data in k_cv parts, randomly
         split <-
-                sample(rep(1:k_cv, length = nrow(penguins)), replace = TRUE)
+                sample(rep(1:k_cv, length = nrow(train)), replace = TRUE)
         #set up a new column in penguins as "split"
-        penguins$split <- split
-        x <-penguins %>% select(bill_length_mm,
+        train$split <- split
+        x <-train %>% select(bill_length_mm,
                                     bill_depth_mm,
                                     flipper_length_mm,
                                     body_mass_g)
-        y <- penguins$species
+        y <- train$species
         k_data_frame <-
                 data.frame("x" = x,
                            "species" = y,

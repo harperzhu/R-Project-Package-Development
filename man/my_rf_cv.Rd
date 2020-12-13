@@ -16,10 +16,10 @@ a numeric with the cross-validation error
 This function predict output using Random Forest Cross-Validation algorithms.
 }
 \examples{
-my_result_1 <- my_knn_cv(train = penguins, cl = penguins$species, k_nn = 1, k_cv = 5 )
-my_result_2 <- my_knn_cv(train = penguins, cl = penguins$species, k_nn = 5, k_cv = 5 )
-train_err_1 <- sum(as.numeric(penguins$species != my_result_1$class)) / nrow(penguins)
-train_err_2 <- sum(as.numeric(penguins$species != my_result_2$class)) / nrow(penguins)
+my_result_1 <- my_knn_cv(train = my_penguins, cl = my_penguins$species, k_nn = 1, k_cv = 5 )
+my_result_2 <- my_knn_cv(train = my_penguins, cl = my_penguins$species, k_nn = 5, k_cv = 5 )
+train_err_1 <- sum(as.numeric(my_penguins$species != my_result_1$class)) / nrow(my_penguins)
+train_err_2 <- sum(as.numeric(my_penguins$species != my_result_2$class)) / nrow(my_penguins)
 my_table_row_1 <- cbind("k_nn = 1" = my_result_1$cv_err, "k_nn = 5" = my_result_2$cv_err)
 my_table_row_2 <- cbind("k_nn = 1" = train_err_1, "k_nn = 5" = train_err_2)
 my_table <- rbind(my_table_row_1, my_table_row_2)
