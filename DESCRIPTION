@@ -8,7 +8,7 @@ Authors@R:
            email = "harperzhu@yahoo.com")
 Description: This package is used to predict the classification of a variable and print out misclassification error.
 License: GPL-3
-Imports: stats, dplyr, magrittr, randomForest, class, tibble
+Imports: stats, dplyr, magrittr, randomForest, class, tibble,tidyr
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

@@ -7,8 +7,8 @@
 #' @param k_nn integer representing the number of neighbors
 #' @param k_cv integer representing the number of folds
 #'
-#' @import dplyr class
-#' tidyr::drop_na
+#' @import dplyr class tidyr
+#'
 #'
 #' @keywords prediction
 #'
