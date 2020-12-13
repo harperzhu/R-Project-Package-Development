@@ -8,7 +8,7 @@
 #' Otherwise, the function should throw an informative error asking you to try again.
 #' @param  mu a number indicating the null hypothesis value of the mean.
 #'
-#' @keywords {inference}
+#' @keywords inference
 #'
 #' @return test_stat represents the numeric test statistic, df represents the degrees of freedom.
 #' alternative represents the value of the parameter alternative, and p_val represents  the numeric p-value.
