@@ -84,13 +84,70 @@ The Pr(>t) acronym found in the model output relates to the probability of obser
 
 ```{r}
 #A tutorial for my_knn_cv using my_penguins.
+my_table <- data.frame()
+for(i in 1:10) {
+  my_result <- my_knn_cv(train = penguins, cl = penguins$species, k_nn = i, k_cv = 5 )
+  my_table[1,i] <- my_result$cv_err
+  my_table[2,i] <- sum(as.numeric(penguins$species != my_result$class)) / nrow(penguins)
+}
+rownames(my_table) <- c("cv_err", "training_err")
+colnames(my_table) <- c("k_nn = 1", "k_nn = 2", "k_nn = 3", "k_nn = 4", "k_nn = 5", "k_nn = 6", "k_nn = 7", "k_nn = 8", "k_nn = 9", "k_nn = 10")
+```
 
+According to the results in the table we can see that when k_nn = 1, we have both the smallest cv error and the training error, so I think k_nn = 1 is the best model when k_cv = 5. 
+
+Cross validation is a statistical method that used to check how accurately our model can predict the result. This method is very useful since it test the model multiple time by using different parts of the same dataset, which is vert efficient.
+
+```{r}
+#A tutorial for my_rf_cv
+my_table_1 <- data.frame()
+for(i in 1:30) {
+  result <- my_rf_cv(k = 2)
+  my_table_1[1,i] <- unlist(result)
+  my_table_1[2,i] <- unlist(result) / nrow(penguins)
+}
+rownames(my_table_1) <- c("MSE", "cv_err")
+colnames(my_table_1) <- c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10")
+
+my_table_2 <- data.frame()
+for(i in 1:30) {
+  result <- my_rf_cv(k = 5)
+  my_table_2[1,i] <- unlist(result)
+  my_table_2[2,i] <- unlist(result) / nrow(penguins)
+}
+rownames(my_table_2) <- c("MSE", "cv_err")
+colnames(my_table_2) <- c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10")
+
+my_table_3 <- data.frame()
+for(i in 1:30) {
+  result <- my_rf_cv(k = 10)
+  my_table_3[1,i] <- unlist(result)
+  my_table_3[2,i] <- unlist(result) / nrow(penguins)
+}
+rownames(my_table_3) <- c("MSE", "cv_err")
+colnames(my_table_3) <- c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10")
 
 ```
 
 ```{r}
-#A tutorial for my_rf_cv
-
-
+x <- as.numeric(my_table_1$MSE)
+y <- as.numeric(my_table_1$cv_err)
+ggplot(my_table_1, aes(x=x, y=y)) + geom_boxplot(outlier.colour="red", outlier.shape=8, outlier.size=4)
 ```
 
+```{r}
+average_cverr_2 <- mean(as.numeric(my_table_1[2,]))
+sd_cverr_2 <- sd(as.numeric(my_table_1[2,]))
+average_cverr_5 <- mean(as.numeric(my_table_2[2,]))
+sd_cverr_5 <- sd(as.numeric(my_table_2[2,]))
+average_cverr_10 <- mean(as.numeric(my_table_3[2,]))
+sd_cverr_10 <- sd(as.numeric(my_table_3[2,]))
+row_1 <- cbind(average_cverr_2, sd_cverr_2)
+row_2 <- cbind(average_cverr_5, sd_cverr_5)
+row_3 <- cbind(average_cverr_10, sd_cverr_10)
+cv_table <- rbind(row_1, row_2, row_3)
+rownames(cv_table) <- c("k = 2", "k = 5", "k = 10")
+colnames(cv_table) <- c("average", "sd")
+cv_table
+```
+We can see from the table, the average and the standard deviation of ev_err become smaller as the value of k gets larger. This is because as the k gets larger, we test our model for more times, so that it becomes more accurate. Thus the values of cv_err get smaller.
