@@ -33,5 +33,5 @@ my_lm <- function(formula, data) {
                        "Std. Error" = se,
                        "t value" = t_value,
                        "Pr(>|t|)" = p_value)
-        return(data.frame(output))
+        return(output)
 }
