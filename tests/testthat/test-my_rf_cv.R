@@ -1,4 +1,12 @@
 test_that("my_rf_cv returns a numeric Estimate", {
-        expect_is(my_rf_cv(k = 5),"numeric")
+        expect_is(my_rf_cv(k = 1),"numeric")
+        expect_is(my_rf_cv(k = 2),"numeric")
         expect_is(my_rf_cv(k = 3),"numeric")
+        expect_is(my_rf_cv(k = 4),"numeric")
+        expect_is(my_rf_cv(k = 5),"numeric")
+        expect_is(my_rf_cv(k = 6),"numeric")
+        expect_is(my_rf_cv(k = 7),"numeric")
+        expect_is(my_rf_cv(k = 8),"numeric")
+        expect_is(my_rf_cv(k = 9),"numeric")
+        expect_is(my_rf_cv(k = 10),"numeric")
 })

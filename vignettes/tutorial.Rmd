@@ -91,8 +91,8 @@ The Pr(>t) acronym found in the model output relates to the probability of obser
 ```{r}
 #A tutorial for my_knn_cv using my_penguins.
 my_table <- data.frame()
+my_penguins <- na.omit(my_penguins)
 for(i in 1:10) {
-  my_penguins <- drop_na(my_penguins)
   my_result <- my_knn_cv(train = my_penguins, cl = my_penguins$species, k_nn = i, k_cv = 5 )
   my_table[1,i] <- my_result$cv_err
   my_table[2,i] <- sum(as.numeric(my_penguins$species != my_result$class)) / nrow(my_penguins)
@@ -107,16 +107,17 @@ Cross validation is a statistical method that used to check how accurately our m
 
 ```{r}
 #A tutorial for my_rf_cv
-my_table_1 <- data.frame()
+penguins <- my_penguins
+library(randomForest)
 
+my_table_1 <- data.frame()
 for(i in 1:30) {
-  my_penguins <- drop_na(my_penguins)
   result <- my_rf_cv(k = 2)
   my_table_1[1,i] <- unlist(result)
   my_table_1[2,i] <- unlist(result) / nrow(my_penguins)
 }
 rownames(my_table_1) <- c("MSE", "cv_err")
-colnames(my_table_1) <- c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10")
+colnames(my_table_1) <- c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30")
 
 my_table_2 <- data.frame()
 for(i in 1:30) {
@@ -125,7 +126,7 @@ for(i in 1:30) {
   my_table_2[2,i] <- unlist(result) / nrow(my_penguins)
 }
 rownames(my_table_2) <- c("MSE", "cv_err")
-colnames(my_table_2) <- c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10")
+colnames(my_table_2) <- c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30")
 
 my_table_3 <- data.frame()
 for(i in 1:30) {
@@ -134,7 +135,7 @@ for(i in 1:30) {
   my_table_3[2,i] <- unlist(result) / nrow(my_penguins)
 }
 rownames(my_table_3) <- c("MSE", "cv_err")
-colnames(my_table_3) <- c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10")
+colnames(my_table_3) <- c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30")
 
 ```
 
