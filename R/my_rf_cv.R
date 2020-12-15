@@ -4,7 +4,7 @@
 #'
 #' @param k number of folds
 #'
-#' @import randomForest
+#' @import randomForest dplyr
 #'
 #' @keywords prediction
 #'
@@ -28,14 +28,18 @@ my_rf_cv <- function(k) {
         split <- sample(rep(1:k, length = nrow(my_penguins)), replace = TRUE)
         #set up a new column in penguins as "split"
         my_penguins$split <- split
-        x <- my_penguins %>% select(body_mass_g, bill_length_mm, bill_depth_mm, flipper_length_mm)
+        x <- my_penguins %>% dplyr::select(body_mass_g, bill_length_mm, bill_depth_mm, flipper_length_mm)
         #Empty matrix to store predictions
         prediction_result <- rep(NA, nrow(x))
+        body_mass_g <- na.omit(my_penguins$body_mass_g)
+        bill_length_mm <- na.omit(my_penguins$bill_length_mm)
+        bill_depth_mm <- na.omit(my_penguins$bill_depth_mm)
+        flipper_length_mm <- na.omit(my_penguins$flipper_length_mm)
         for (i in 1:k){
-                data_train <- x %>% filter(split != i)
+                data_train <- x %>% filter(split != i)%>%na.omit()
                 data_test <- x %>% filter(split == i)
                 #Train our model and record predictions and errors
-                forest_model <- randomForest(body_mass_g ~ bill_length_mm + bill_depth_mm + flipper_length_mm, data = data_train, ntree = 100)
+                forest_model <- randomForest(as.formula(body_mass_g ~ bill_length_mm + bill_depth_mm + flipper_length_mm), data = data_train, ntree = 100)
                 prediction_result[split == i] <- predict(forest_model, data_test[, -1])
         }
         sum <- 0
