@@ -4,6 +4,8 @@
 #'
 #' @param k number of folds
 #'
+#' @import randomForest
+#'
 #' @keywords prediction
 #'
 #' @return a numeric with the cross-validation error
@@ -23,10 +25,10 @@
 #' @export
 my_rf_cv <- function(k) {
         #Split data in k parts, randomly
-        split <- sample(rep(1:k, length = nrow(penguins)), replace = TRUE)
+        split <- sample(rep(1:k, length = nrow(my_penguins)), replace = TRUE)
         #set up a new column in penguins as "split"
-        penguins$split <- split
-        x <- penguins %>% select(body_mass_g, bill_length_mm, bill_depth_mm, flipper_length_mm)
+        my_penguins$split <- split
+        x <- my_penguins %>% select(body_mass_g, bill_length_mm, bill_depth_mm, flipper_length_mm)
         #Empty matrix to store predictions
         prediction_result <- rep(NA, nrow(x))
         for (i in 1:k){
