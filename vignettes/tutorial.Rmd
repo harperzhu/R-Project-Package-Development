@@ -127,7 +127,13 @@ for(i in 1:30) {
 colnames(my_table_3) <- c("MSE", "cv_err")
 rownames(my_table_3) <- c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30")
 
+#simulation <- write.csv2(c(my_table_1,my_table_2, my_table_3), file = "/Users/harper/Documents/Fall2020/Stat302/Project2/project2pipieline/Output/simulation.csv")
+
+
+
 ```
+
+
 
 ```{r}
 x <- as.numeric(my_table_1$MSE)
