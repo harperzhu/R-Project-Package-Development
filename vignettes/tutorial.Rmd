@@ -109,48 +109,64 @@ my_table_1 <- data.frame()
 for(i in 1:30) {
   result <- my_rf_cv(k = 2)
   my_table_1[i,1] <- unlist(result)
-  my_table_1[i,2] <- unlist(result) / nrow(my_penguins)
 }
-colnames(my_table_1) <- c("MSE", "cv_err")
+colnames(my_table_1) <- c("MSE")
 rownames(my_table_1) <- c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30")
 
 my_table_2 <- data.frame()
 for(i in 1:30) {
   result <- my_rf_cv(k = 5)
   my_table_2[i,1] <- unlist(result)
-  my_table_2[i,2] <- unlist(result) / nrow(my_penguins)
 }
-colnames(my_table_2) <- c("MSE", "cv_err")
+colnames(my_table_2) <- c("MSE")
 rownames(my_table_2) <- c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30")
 
 my_table_3 <- data.frame()
 for(i in 1:30) {
   result <- my_rf_cv(k = 10)
   my_table_3[i,1] <- unlist(result)
-  my_table_3[i,2] <- unlist(result) / nrow(my_penguins)
 }
-colnames(my_table_3) <- c("MSE", "cv_err")
+colnames(my_table_3) <- c("MSE")
 rownames(my_table_3) <- c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30")
-
-
-
 
 ```
 
 
 
 ```{r}
-#x <- as.numeric(my_table_1$MSE)
-#y <- as.numeric(my_table_1$cv_err)
-require(gridExtra)
-#plot for k=2
-plot1 <- ggplot(my_table_1, aes(x=MSE, y=cv_err)) + geom_boxplot(outlier.colour="red", outlier.shape=8, outlier.size=4)+ theme_bw()
-#plot for k=5
-plot2 <- ggplot(my_table_2, aes(x=MSE, y=cv_err)) + geom_boxplot(outlier.colour="red", outlier.shape=8, outlier.size=4)+ theme_bw()
-#plot for k=10
-plot3 <- ggplot(my_table_3, aes(x=MSE, y=cv_err)) + geom_boxplot(outlier.colour="red", outlier.shape=8, outlier.size=4) + theme_bw()
-grid.arrange(plot1, plot2, plot3, ncol=3)
 
+folds <- rep(c(2, 5, 10), each = 30) %>% as.factor()
+all_table <- rbind(my_table_1, my_table_2, my_table_3)
+df <- data.frame(all_table, folds)
+ggplot(data = df,
+       aes(
+               x = unlist(folds),
+               y = unlist(all_table),
+               group = unlist(folds),
+               fill = folds
+       )) +
+        geom_boxplot() +
+        xlab("folds") +
+        ylab("MSE") +
+        labs("Misclassification Errors with different number of folds") +
+        theme_bw() +
+        theme(
+                plot.title = element_text(hjust = 0.5, face = "bold"),
+                axis.text.x = element_text(
+                        angle = 45,
+                        hjust = 1,
+                        vjust = 1
+                ),
+                panel.spacing.x = unit(0.75, "cm")
+        ) +
+        scale_fill_brewer(
+                type = "seq",
+                palette = 1,
+                direction = 1,
+                aesthetics = "fill"
+        )
+
+        
 ```
 
 ```{r}
