@@ -16,10 +16,6 @@
 #'my_rf_cv(k = 4)
 #'my_rf_cv(k = 5)
 #'my_rf_cv(k = 6)
-<<<<<<< HEAD
-=======
-
->>>>>>> 7036c4c556ce639d11006fd73a060b32177c85fb
 #'
 #' @export
 my_rf_cv <- function(k) {
@@ -39,5 +35,5 @@ my_rf_cv <- function(k) {
                 prediction_result[split == i] <- predict(forest_model, data_test[, -1])
         }
         mse <- mean((prediction_result - x$body_mass_g)^2)
-        return(list("MSE" = mse))
+        return("MSE" = mse)
 }
