@@ -14,15 +14,16 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
-projectpackage is an R package for cross validation classification, t- test and testing hypotheses.
 
-```{r setup}
+Introduction: This is a R package that utilized cross-validation algorithm and hypothesis testing mechanism to produce prediction and inference. It includes four functions: my_t.test, my_lm, my_knn_cv, my_rf_cv. In regards to installation instruction, please see the installation section below. The documentation of each function can be accessed through ?function_name(). If you have any question, feel free to reach out to us: harperzhu@yahoo.com , sz94@uw.edu
+```{r}
 
 #instructions for how to install your package from Github
+#install.packages("devtools")
+#devtools::install_github("harperzhu/projectpackage")
 library(projectpackage)
+
 ```
-
-
 
 
 ```{r}
@@ -104,7 +105,7 @@ Cross validation is a statistical method that used to check how accurately our m
 #A tutorial for my_rf_cv
 penguins <- my_penguins
 library(randomForest)
-
+#Calculate CV estimated MSE when k = 2
 my_table_1 <- data.frame()
 for(i in 1:30) {
   result <- my_rf_cv(k = 2)
@@ -112,7 +113,7 @@ for(i in 1:30) {
 }
 colnames(my_table_1) <- c("MSE")
 rownames(my_table_1) <- c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30")
-
+#Calculate CV estimated MSE when k = 5
 my_table_2 <- data.frame()
 for(i in 1:30) {
   result <- my_rf_cv(k = 5)
@@ -120,7 +121,7 @@ for(i in 1:30) {
 }
 colnames(my_table_2) <- c("MSE")
 rownames(my_table_2) <- c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30")
-
+#Calculate CV estimated MSE when k = 10
 my_table_3 <- data.frame()
 for(i in 1:30) {
   result <- my_rf_cv(k = 10)
@@ -134,13 +135,12 @@ rownames(my_table_3) <- c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11
 
 
 ```{r}
-
+#Generate a boxplot of MSE for multiple values of k.
 folds <- rep(c(2, 5, 10), each = 30) %>% as.factor()
 all_table <- rbind(my_table_1, my_table_2, my_table_3)
 df <- data.frame(all_table, folds)
 ggplot(data = df,
-       aes(
-               x = unlist(folds),
+       aes(    x = unlist(folds),
                y = unlist(all_table),
                group = unlist(folds),
                fill = folds
@@ -170,12 +170,13 @@ ggplot(data = df,
 ```
 
 ```{r}
-average_cverr_2 <- mean(as.numeric(my_table_1[2,]))
-sd_cverr_2 <- sd(as.numeric(my_table_1[2,]))
-average_cverr_5 <- mean(as.numeric(my_table_2[2,]))
-sd_cverr_5 <- sd(as.numeric(my_table_2[2,]))
-average_cverr_10 <- mean(as.numeric(my_table_3[2,]))
-sd_cverr_10 <- sd(as.numeric(my_table_3[2,]))
+#Calculating the cverr and the MSE and put they into table for 3 different value of k.
+average_cverr_2 <- mean(as.numeric(my_table_1[,1]))
+sd_cverr_2 <- sd(as.numeric(my_table_1[,1]))
+average_cverr_5 <- mean(as.numeric(my_table_2[,1]))
+sd_cverr_5 <- sd(as.numeric(my_table_2[,1]))
+average_cverr_10 <- mean(as.numeric(my_table_3[,1]))
+sd_cverr_10 <- sd(as.numeric(my_table_3[,1]))
 row_1 <- cbind(average_cverr_2, sd_cverr_2)
 row_2 <- cbind(average_cverr_5, sd_cverr_5)
 row_3 <- cbind(average_cverr_10, sd_cverr_10)
@@ -184,4 +185,4 @@ rownames(cv_table) <- c("k = 2", "k = 5", "k = 10")
 colnames(cv_table) <- c("average", "sd")
 cv_table
 ```
-We can see from the table, the average and the standard deviation of ev_err become smaller as the value of k gets larger. This is because as the k gets larger, we test our model for more times, so that it becomes more accurate. Thus the values of cv_err get smaller.
+We can see from the table and the boxplot, the average and the standard deviation of ev_err become smaller as the value of k gets larger. This is because as the k gets larger, we test our model for more times, so that it becomes more accurate. Thus the values of cv_err get smaller.
