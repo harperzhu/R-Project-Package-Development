@@ -26,7 +26,7 @@ utils::browseVignettes(package = "projectpackage")
 
 ## Installation ##
 
-To download the corncob package, use the code below.
+To download the projectpackage package, use the code below.
 ```{r}
 # install.packages("devtools")
 devtools::install_github("harperzhu/projectpackage")
