@@ -6,7 +6,8 @@
   
   ## Projectpackage ##
 
-projectpackage is an R package for cross validation classification, t- test and testing hypotheses.
+Introduction: This is a R package that utilized cross-validation algorithm and hypothesis testing mechanism to produce prediction and inference. It includes four functions: my_t.test, my_lm, my_knn_cv, my_rf_cv. In regards to installation instruction, please see the installation section below. The documentation of each function can be accessed through ?function_name(). If you have any question, feel free to reach out to us: harperzhu@yahoo.com , sz94@uw.edu
+```{r eval=FALSE, force = TRUE}
 
 ## use ##
 
