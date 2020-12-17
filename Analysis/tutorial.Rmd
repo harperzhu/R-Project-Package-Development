@@ -81,21 +81,40 @@ rownames(my_table_3) <- c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11
 ```{r}
 library(ggplot2)
 library(readr)
-x <- as.numeric(my_table_1$MSE)
-y <- as.numeric(my_table_1$cv_err)
-#plot for k=2
-graph_1<- ggplot(my_table_1, aes(x=MSE, y=cv_err)) + geom_boxplot(outlier.colour="red", outlier.shape=8, outlier.size=4)
-#plot for k=5
-graph_2<- ggplot(my_table_2, aes(x=MSE, y=cv_err)) + geom_boxplot(outlier.colour="red", outlier.shape=8, outlier.size=4)
-#plot for k=10
-graph_3<- ggplot(my_table_3, aes(x=MSE, y=cv_err)) + geom_boxplot(outlier.colour="red", outlier.shape=8, outlier.size=4)
+folds <- rep(c(2, 5, 10), each = 30) %>% as.factor() %>% is.vector()
+all_table <- rbind(my_table_1, my_table_2, my_table_3)
+df <- data.frame(all_table, folds)
+ggplot(data = df,
+       aes(
+               x = unlist(folds),
+               y = unlist(all_table),
+               group = unlist(folds),
+               fill = folds
+       )) +
+        geom_boxplot() +
+        xlab("folds") +
+        ylab("MSE") +
+        labs("Misclassification Errors with different number of folds") +
+        theme_bw() +
+        theme(
+                plot.title = element_text(hjust = 0.5, face = "bold"),
+                axis.text.x = element_text(
+                        angle = 45,
+                        hjust = 1,
+                        vjust = 1
+                ),
+                panel.spacing.x = unit(0.75, "cm")
+        ) +
+        scale_fill_brewer(
+                type = "seq",
+                palette = 1,
+                direction = 1,
+                aesthetics = "fill"
+        )
  ggsave(path = "../Output/Figures", filename = "graph_1.jpg")
- ggsave(path = "../Output/Figures", filename = "graph_2.jpg")
- ggsave(path = "../Output/Figures", filename = "graph_3.jpg")
- my_table_1 <- as.data.frame(my_table_1)
- my_table_2 <- as.data.frame(my_table_2)
- my_table_3 <- as.data.frame(my_table_3)
-simulation <- write_csv(merge(my_table_1,my_table_2, my_table_3), file = "../Output/Result/simulation.csv")
+ 
+ 
+# simulation <- write_csv(c(my_table_1,my_table_2, my_table_3), file = "../Output/Result/simulation.csv")
 ```
 
 ```{r}
