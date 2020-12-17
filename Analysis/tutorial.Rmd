@@ -16,9 +16,11 @@ knitr::opts_chunk$set(
 ```
 projectpackage is an R package for cross validation classification, t- test and testing hypotheses.
 
-```{r setup}
 
-#instructions for how to install your package from Github
+
+```{r set up}
+
+
 penguins_rda <- load("../data/my_penguins.rda")
 gapminder_rda<- load("../data/my_gapminder.rda")
 write.csv(get(penguins_rda),"../data/my_penguins.csv")
@@ -50,7 +52,6 @@ flipper_length_mm <- na.omit(my_penguins$flipper_length_mm)
 for(i in 1:30) {
   result <- my_rf_cv(k = 2)
   my_table_1[i,1] <- unlist(result)
-  #where error is 
   my_table_1[i,2] <- unlist(result) / nrow(my_penguins)
 }
 
@@ -81,9 +82,9 @@ rownames(my_table_3) <- c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11
 ```{r}
 library(ggplot2)
 library(readr)
-folds <- rep(c(2, 5, 10), each = 30) %>% as.factor() %>% is.vector()
-all_table <- rbind(my_table_1, my_table_2, my_table_3)
-df <- data.frame(all_table, folds)
+folds <- rep(c(2, 5, 10), each = 30) %>% as.factor()
+all_table <- cbind(t(my_table_1$MSE), t(my_table_2$MSE), t(my_table_3$MSE))
+df <- data.frame(t(all_table), folds)
 ggplot(data = df,
        aes(
                x = unlist(folds),
@@ -112,18 +113,42 @@ ggplot(data = df,
                 aesthetics = "fill"
         )
  ggsave(path = "../Output/Figures", filename = "graph_1.jpg")
+ df_summary <- data.frame()
+ df_summary[1,1] <- mean(my_table_1$MSE)
+ df_summary[1,2] <- sd(my_table_1$MSE)
+ df_summary[1,3] <- min(my_table_1$MSE)
+ df_summary[1,4] <- quantile(my_table_1$MSE, 0.25)
+ df_summary[1,5] <- quantile(my_table_1$MSE, 0.75)
+ df_summary[1,6] <- max(my_table_1$MSE)
  
+ df_summary[2,1] <- mean(my_table_2$MSE)
+ df_summary[2,2] <- sd(my_table_2$MSE)
+ df_summary[2,3] <- min(my_table_2$MSE)
+ df_summary[2,4] <- quantile(my_table_2$MSE, 0.25)
+ df_summary[2,5] <- quantile(my_table_2$MSE, 0.75)
+ df_summary[2,6] <- max(my_table_2$MSE)
  
-# simulation <- write_csv(c(my_table_1,my_table_2, my_table_3), file = "../Output/Result/simulation.csv")
+ df_summary[3,1] <- mean(my_table_3$MSE)
+ df_summary[3,2] <- sd(my_table_3$MSE)
+ df_summary[3,3] <- min(my_table_3$MSE)
+ df_summary[3,4] <- quantile(my_table_3$MSE, 0.25)
+ df_summary[3,5] <- quantile(my_table_3$MSE, 0.75)
+ df_summary[3,6] <- max(my_table_3$MSE)
+ 
+colnames(df_summary) <- c("mean", "sd", "min", "25% quartile", "75% quartile", "max")
+rownames(df_summary) <- c("k = 2", "k = 5", "k = 10")
+ saveRDS(df_summary, file = "../Output/Result/summary_statistics.rds")
+ 
+simulation <- write.csv(c(my_table_1$MSE,my_table_2$MSE, my_table_3$MSE), file = "../Output/Result/simulation.csv")
 ```
 
 ```{r}
-average_cverr_2 <- mean(as.numeric(my_table_1[2,]))
-sd_cverr_2 <- sd(as.numeric(my_table_1[2,]))
-average_cverr_5 <- mean(as.numeric(my_table_2[2,]))
-sd_cverr_5 <- sd(as.numeric(my_table_2[2,]))
-average_cverr_10 <- mean(as.numeric(my_table_3[2,]))
-sd_cverr_10 <- sd(as.numeric(my_table_3[2,]))
+average_cverr_2 <- mean(as.numeric(my_table_1[,2]))
+sd_cverr_2 <- sd(as.numeric(my_table_1[,2]))
+average_cverr_5 <- mean(as.numeric(my_table_2[,2]))
+sd_cverr_5 <- sd(as.numeric(my_table_2[,2]))
+average_cverr_10 <- mean(as.numeric(my_table_3[,2]))
+sd_cverr_10 <- sd(as.numeric(my_table_3[,2]))
 row_1 <- cbind(average_cverr_2, sd_cverr_2)
 row_2 <- cbind(average_cverr_5, sd_cverr_5)
 row_3 <- cbind(average_cverr_10, sd_cverr_10)
