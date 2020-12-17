@@ -1,2 +1,8 @@
+<<<<<<< HEAD
 load("/Users/siyuezhu/Desktop/STAT302/projects/project_2/projectpipeline/Output/Result/summary_statistics.rds")
 load("/Users/siyuezhu/Desktop/STAT302/projects/project_2/projectpipeline/Output/Result/summary_statistics.rds")
+=======
+load("/Users/harper/Documents/Fall2020/Stat302/Project2/project2pipieline/Output/Result/summary_statistics.rds")
+load("/Users/harper/Documents/Fall2020/Stat302/Project2/project2pipieline/Output/Result/summary_statistics.rds")
+load("/Users/harper/Documents/Fall2020/Stat302/Project2/project2pipieline/Output/Result/summary_statistics.rds")
+>>>>>>> 61a03c8a69e3eb11c6b9a787249c78a36dabdfc4
