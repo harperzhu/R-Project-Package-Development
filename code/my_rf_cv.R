@@ -11,7 +11,7 @@
 #' @return a numeric with the cross-validation error
 #'
 #' @examples
-#'my_penguins <- tidyr::drop_na(my_penguins)
+#'my_penguins <- na.omit(my_penguins)
 #'my_result_1 <- my_knn_cv(train = my_penguins, cl = my_penguins$species, k_nn = 1, k_cv = 5 )
 #'my_result_2 <- my_knn_cv(train = my_penguins, cl = my_penguins$species, k_nn = 5, k_cv = 5 )
 #'train_err_1 <- sum(as.numeric(my_penguins$species != my_result_1$class)) / nrow(my_penguins)
@@ -24,6 +24,7 @@
 #'
 #' @export
 my_rf_cv <- function(k) {
+        my_penguins <- tidyr::drop_na(my_penguins)
         #Split data in k parts, randomly
         split <- sample(rep(1:k, length = nrow(my_penguins)), replace = TRUE)
         #set up a new column in penguins as "split"
@@ -31,22 +32,15 @@ my_rf_cv <- function(k) {
         x <- my_penguins %>% dplyr::select(body_mass_g, bill_length_mm, bill_depth_mm, flipper_length_mm)
         #Empty matrix to store predictions
         prediction_result <- rep(NA, nrow(x))
-        body_mass_g <- na.omit(my_penguins$body_mass_g)
-        bill_length_mm <- na.omit(my_penguins$bill_length_mm)
-        bill_depth_mm <- na.omit(my_penguins$bill_depth_mm)
-        flipper_length_mm <- na.omit(my_penguins$flipper_length_mm)
         for (i in 1:k){
-                data_train <- x %>% filter(split != i)%>%na.omit()
-                data_test <- x %>% filter(split == i)
+                data_train <- x %>% dplyr::filter(split != i)
+                data_test <- x %>% dplyr::filter(split == i)
                 #Train our model and record predictions and errors
-                forest_model <- randomForest(as.formula(body_mass_g ~ bill_length_mm + bill_depth_mm + flipper_length_mm), data = data_train, ntree = 100)
+                forest_model <- randomForest(body_mass_g ~ bill_length_mm + bill_depth_mm + flipper_length_mm, data = data_train, ntree = 100)
                 prediction_result[split == i] <- predict(forest_model, data_test[, -1])
         }
-        sum <- 0
-        body_mass_g <- x$body_mass_g
-        for (i in 1 : nrow(x)) {
-                sum <- sum + (prediction_result[i] - body_mass_g[i])^2
-        }
-        mse <- sum / length(x$body_mass_g)
+        mse <- mean((prediction_result - x$body_mass_g)^2)
+        return(list("MSE" = mse))
+
         return(list("MSE" = mse))
 }

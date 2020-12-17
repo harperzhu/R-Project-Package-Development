@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Project 2: projectpackage Tutorial</title>
+
+<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
+// v0.0.1
+// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
+
+document.addEventListener('DOMContentLoaded', function() {
+  const codeList = document.getElementsByClassName("sourceCode");
+  for (var i = 0; i < codeList.length; i++) {
+    var linkList = codeList[i].getElementsByTagName('a');
+    for (var j = 0; j < linkList.length; j++) {
+      if (linkList[j].innerHTML === "") {
+        linkList[j].setAttribute('aria-hidden', 'true');
+      }
+    }
+  }
+});
+</script>
+<style type="text/css">
+a.anchor-section {margin-left: 10px; visibility: hidden; color: inherit;}
+a.anchor-section::before {content: '#';}
+.hasAnchor:hover a.anchor-section {visibility: visible;}
+</style>
+<script>// Anchor sections v1.0 written by Atsushi Yasumoto on Oct 3rd, 2020.
+document.addEventListener('DOMContentLoaded', function() {
+  // Do nothing if AnchorJS is used
+  if (typeof window.anchors === 'object' && anchors.hasOwnProperty('hasAnchorJSLink')) {
+    return;
+  }
+
+  const h = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+
+  // Do nothing if sections are already anchored
+  if (Array.from(h).some(x => x.classList.contains('hasAnchor'))) {
+    return null;
+  }
+
+  // Use section id when pandoc runs with --section-divs
+  const section_id = function(x) {
+    return ((x.classList.contains('section') || (x.tagName === 'SECTION'))
+            ? x.id : '');
+  };
+
+  // Add anchors
+  h.forEach(function(x) {
+    const id = x.id || section_id(x.parentElement);
+    if (id === '') {
+      return null;
+    }
+    let anchor = document.createElement('a');
+    anchor.href = '#' + id;
+    anchor.classList = ['anchor-section'];
+    x.classList.add('hasAnchor');
+    x.appendChild(anchor);
+  });
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Project 2: projectpackage Tutorial</h1>
+
+
+
+<p>projectpackage is an R package for cross validation classification, t- test and testing hypotheses.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="co">#instructions for how to install your package from Github</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>penguins_rda &lt;-<span class="st"> </span><span class="kw">load</span>(<span class="st">&quot;../data/my_penguins.rda&quot;</span>)</span>
+<span id="cb1-4"><a href="#cb1-4"></a>gapminder_rda&lt;-<span class="st"> </span><span class="kw">load</span>(<span class="st">&quot;../data/my_gapminder.rda&quot;</span>)</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="kw">write.csv</span>(<span class="kw">get</span>(penguins_rda),<span class="st">&quot;../data/my_penguins.csv&quot;</span>)</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="kw">write.csv</span>(<span class="kw">get</span>(gapminder_rda),<span class="st">&quot;../data/my_gapminder.csv&quot;</span>)</span>
+<span id="cb1-7"><a href="#cb1-7"></a>my_penguins &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;../data/my_penguins.csv&quot;</span>)</span>
+<span id="cb1-8"><a href="#cb1-8"></a></span>
+<span id="cb1-9"><a href="#cb1-9"></a></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="kw">source</span>(<span class="st">&quot;../code/my_rf_cv.R&quot;</span>)</span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co">#source(&quot;/Users/harper/Documents/Fall2020/Stat302/Project2/project2pipieline/code/my_rf_cv.R&quot;)</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="co">#saveRDS()</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">#A tutorial for my_rf_cv</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="kw">library</span>(randomForest)</span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co">#&gt; randomForest 4.6-14</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="co">#&gt; Type rfNews() to see new features/changes/bug fixes.</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#&gt; </span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="co">#&gt; Attaching package: &#39;dplyr&#39;</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#&gt; The following object is masked from &#39;package:randomForest&#39;:</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="co">#&gt; </span></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="co">#&gt;     combine</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="co">#&gt; The following objects are masked from &#39;package:stats&#39;:</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="co">#&gt; </span></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="co">#&gt;     filter, lag</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="co">#&gt; The following objects are masked from &#39;package:base&#39;:</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a><span class="co">#&gt; </span></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span>
+<span id="cb2-18"><a href="#cb2-18"></a><span class="kw">library</span>(tidyr)</span>
+<span id="cb2-19"><a href="#cb2-19"></a></span>
+<span id="cb2-20"><a href="#cb2-20"></a>my_table_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">data.frame</span>()</span>
+<span id="cb2-21"><a href="#cb2-21"></a>body_mass_g &lt;-<span class="st"> </span><span class="kw">na.omit</span>(my_penguins<span class="op">$</span>body_mass_g)</span>
+<span id="cb2-22"><a href="#cb2-22"></a>bill_length_mm &lt;-<span class="st"> </span><span class="kw">na.omit</span>(my_penguins<span class="op">$</span>bill_length_mm)</span>
+<span id="cb2-23"><a href="#cb2-23"></a>bill_depth_mm &lt;-<span class="st"> </span><span class="kw">na.omit</span>(my_penguins<span class="op">$</span>bill_depth_mm)</span>
+<span id="cb2-24"><a href="#cb2-24"></a>flipper_length_mm &lt;-<span class="st"> </span><span class="kw">na.omit</span>(my_penguins<span class="op">$</span>flipper_length_mm)</span>
+<span id="cb2-25"><a href="#cb2-25"></a>        </span>
+<span id="cb2-26"><a href="#cb2-26"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">30</span>) {</span>
+<span id="cb2-27"><a href="#cb2-27"></a>  result &lt;-<span class="st"> </span><span class="kw">my_rf_cv</span>(<span class="dt">k =</span> <span class="dv">2</span>)</span>
+<span id="cb2-28"><a href="#cb2-28"></a>  my_table_<span class="dv">1</span>[i,<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">unlist</span>(result)</span>
+<span id="cb2-29"><a href="#cb2-29"></a>  <span class="co">#where error is </span></span>
+<span id="cb2-30"><a href="#cb2-30"></a>  my_table_<span class="dv">1</span>[i,<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">unlist</span>(result) <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(my_penguins)</span>
+<span id="cb2-31"><a href="#cb2-31"></a>}</span>
+<span id="cb2-32"><a href="#cb2-32"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-33"><a href="#cb2-33"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-34"><a href="#cb2-34"></a></span>
+<span id="cb2-35"><a href="#cb2-35"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-36"><a href="#cb2-36"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-37"><a href="#cb2-37"></a></span>
+<span id="cb2-38"><a href="#cb2-38"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-39"><a href="#cb2-39"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-40"><a href="#cb2-40"></a></span>
+<span id="cb2-41"><a href="#cb2-41"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-42"><a href="#cb2-42"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-43"><a href="#cb2-43"></a></span>
+<span id="cb2-44"><a href="#cb2-44"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-45"><a href="#cb2-45"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-46"><a href="#cb2-46"></a></span>
+<span id="cb2-47"><a href="#cb2-47"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-48"><a href="#cb2-48"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-49"><a href="#cb2-49"></a></span>
+<span id="cb2-50"><a href="#cb2-50"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-51"><a href="#cb2-51"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-52"><a href="#cb2-52"></a></span>
+<span id="cb2-53"><a href="#cb2-53"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-54"><a href="#cb2-54"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-55"><a href="#cb2-55"></a></span>
+<span id="cb2-56"><a href="#cb2-56"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-57"><a href="#cb2-57"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-58"><a href="#cb2-58"></a></span>
+<span id="cb2-59"><a href="#cb2-59"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-60"><a href="#cb2-60"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-61"><a href="#cb2-61"></a></span>
+<span id="cb2-62"><a href="#cb2-62"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-63"><a href="#cb2-63"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-64"><a href="#cb2-64"></a></span>
+<span id="cb2-65"><a href="#cb2-65"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-66"><a href="#cb2-66"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-67"><a href="#cb2-67"></a></span>
+<span id="cb2-68"><a href="#cb2-68"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-69"><a href="#cb2-69"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-70"><a href="#cb2-70"></a></span>
+<span id="cb2-71"><a href="#cb2-71"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-72"><a href="#cb2-72"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-73"><a href="#cb2-73"></a></span>
+<span id="cb2-74"><a href="#cb2-74"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-75"><a href="#cb2-75"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-76"><a href="#cb2-76"></a></span>
+<span id="cb2-77"><a href="#cb2-77"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-78"><a href="#cb2-78"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-79"><a href="#cb2-79"></a></span>
+<span id="cb2-80"><a href="#cb2-80"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-81"><a href="#cb2-81"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-82"><a href="#cb2-82"></a></span>
+<span id="cb2-83"><a href="#cb2-83"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-84"><a href="#cb2-84"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-85"><a href="#cb2-85"></a></span>
+<span id="cb2-86"><a href="#cb2-86"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-87"><a href="#cb2-87"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-88"><a href="#cb2-88"></a></span>
+<span id="cb2-89"><a href="#cb2-89"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-90"><a href="#cb2-90"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-91"><a href="#cb2-91"></a></span>
+<span id="cb2-92"><a href="#cb2-92"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-93"><a href="#cb2-93"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-94"><a href="#cb2-94"></a></span>
+<span id="cb2-95"><a href="#cb2-95"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-96"><a href="#cb2-96"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-97"><a href="#cb2-97"></a></span>
+<span id="cb2-98"><a href="#cb2-98"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-99"><a href="#cb2-99"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-100"><a href="#cb2-100"></a></span>
+<span id="cb2-101"><a href="#cb2-101"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-102"><a href="#cb2-102"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-103"><a href="#cb2-103"></a></span>
+<span id="cb2-104"><a href="#cb2-104"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-105"><a href="#cb2-105"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-106"><a href="#cb2-106"></a></span>
+<span id="cb2-107"><a href="#cb2-107"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-108"><a href="#cb2-108"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-109"><a href="#cb2-109"></a></span>
+<span id="cb2-110"><a href="#cb2-110"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-111"><a href="#cb2-111"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-112"><a href="#cb2-112"></a></span>
+<span id="cb2-113"><a href="#cb2-113"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-114"><a href="#cb2-114"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-115"><a href="#cb2-115"></a></span>
+<span id="cb2-116"><a href="#cb2-116"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-117"><a href="#cb2-117"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-118"><a href="#cb2-118"></a></span>
+<span id="cb2-119"><a href="#cb2-119"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-120"><a href="#cb2-120"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-121"><a href="#cb2-121"></a></span>
+<span id="cb2-122"><a href="#cb2-122"></a><span class="kw">colnames</span>(my_table_<span class="dv">1</span>) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;MSE&quot;</span>, <span class="st">&quot;cv_err&quot;</span>)</span>
+<span id="cb2-123"><a href="#cb2-123"></a><span class="kw">rownames</span>(my_table_<span class="dv">1</span>) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;4&quot;</span>, <span class="st">&quot;5&quot;</span>, <span class="st">&quot;6&quot;</span>, <span class="st">&quot;7&quot;</span>, <span class="st">&quot;8&quot;</span>, <span class="st">&quot;9&quot;</span>, <span class="st">&quot;10&quot;</span>, <span class="st">&quot;11&quot;</span>, <span class="st">&quot;12&quot;</span>, <span class="st">&quot;13&quot;</span>, <span class="st">&quot;14&quot;</span>, <span class="st">&quot;15&quot;</span>, <span class="st">&quot;16&quot;</span>, <span class="st">&quot;17&quot;</span>, <span class="st">&quot;18&quot;</span>, <span class="st">&quot;19&quot;</span>, <span class="st">&quot;20&quot;</span>, <span class="st">&quot;21&quot;</span>, <span class="st">&quot;22&quot;</span>, <span class="st">&quot;23&quot;</span>, <span class="st">&quot;24&quot;</span>, <span class="st">&quot;25&quot;</span>, <span class="st">&quot;26&quot;</span>, <span class="st">&quot;27&quot;</span>, <span class="st">&quot;28&quot;</span>, <span class="st">&quot;29&quot;</span>, <span class="st">&quot;30&quot;</span>)</span>
+<span id="cb2-124"><a href="#cb2-124"></a></span>
+<span id="cb2-125"><a href="#cb2-125"></a>my_table_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">data.frame</span>()</span>
+<span id="cb2-126"><a href="#cb2-126"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">30</span>) {</span>
+<span id="cb2-127"><a href="#cb2-127"></a>  result &lt;-<span class="st"> </span><span class="kw">my_rf_cv</span>(<span class="dt">k =</span> <span class="dv">5</span>)</span>
+<span id="cb2-128"><a href="#cb2-128"></a>  my_table_<span class="dv">2</span>[i,<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">unlist</span>(result)</span>
+<span id="cb2-129"><a href="#cb2-129"></a>  my_table_<span class="dv">2</span>[i,<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">unlist</span>(result) <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(my_penguins)</span>
+<span id="cb2-130"><a href="#cb2-130"></a>}</span>
+<span id="cb2-131"><a href="#cb2-131"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-132"><a href="#cb2-132"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-133"><a href="#cb2-133"></a></span>
+<span id="cb2-134"><a href="#cb2-134"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-135"><a href="#cb2-135"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-136"><a href="#cb2-136"></a></span>
+<span id="cb2-137"><a href="#cb2-137"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-138"><a href="#cb2-138"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-139"><a href="#cb2-139"></a></span>
+<span id="cb2-140"><a href="#cb2-140"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-141"><a href="#cb2-141"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-142"><a href="#cb2-142"></a></span>
+<span id="cb2-143"><a href="#cb2-143"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-144"><a href="#cb2-144"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-145"><a href="#cb2-145"></a></span>
+<span id="cb2-146"><a href="#cb2-146"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-147"><a href="#cb2-147"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-148"><a href="#cb2-148"></a></span>
+<span id="cb2-149"><a href="#cb2-149"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-150"><a href="#cb2-150"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-151"><a href="#cb2-151"></a></span>
+<span id="cb2-152"><a href="#cb2-152"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-153"><a href="#cb2-153"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-154"><a href="#cb2-154"></a></span>
+<span id="cb2-155"><a href="#cb2-155"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-156"><a href="#cb2-156"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-157"><a href="#cb2-157"></a></span>
+<span id="cb2-158"><a href="#cb2-158"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-159"><a href="#cb2-159"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-160"><a href="#cb2-160"></a></span>
+<span id="cb2-161"><a href="#cb2-161"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-162"><a href="#cb2-162"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-163"><a href="#cb2-163"></a></span>
+<span id="cb2-164"><a href="#cb2-164"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-165"><a href="#cb2-165"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-166"><a href="#cb2-166"></a></span>
+<span id="cb2-167"><a href="#cb2-167"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-168"><a href="#cb2-168"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-169"><a href="#cb2-169"></a></span>
+<span id="cb2-170"><a href="#cb2-170"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-171"><a href="#cb2-171"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-172"><a href="#cb2-172"></a></span>
+<span id="cb2-173"><a href="#cb2-173"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-174"><a href="#cb2-174"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-175"><a href="#cb2-175"></a></span>
+<span id="cb2-176"><a href="#cb2-176"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-177"><a href="#cb2-177"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-178"><a href="#cb2-178"></a></span>
+<span id="cb2-179"><a href="#cb2-179"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-180"><a href="#cb2-180"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-181"><a href="#cb2-181"></a></span>
+<span id="cb2-182"><a href="#cb2-182"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-183"><a href="#cb2-183"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-184"><a href="#cb2-184"></a></span>
+<span id="cb2-185"><a href="#cb2-185"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-186"><a href="#cb2-186"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-187"><a href="#cb2-187"></a></span>
+<span id="cb2-188"><a href="#cb2-188"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-189"><a href="#cb2-189"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-190"><a href="#cb2-190"></a></span>
+<span id="cb2-191"><a href="#cb2-191"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-192"><a href="#cb2-192"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-193"><a href="#cb2-193"></a></span>
+<span id="cb2-194"><a href="#cb2-194"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-195"><a href="#cb2-195"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-196"><a href="#cb2-196"></a></span>
+<span id="cb2-197"><a href="#cb2-197"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-198"><a href="#cb2-198"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-199"><a href="#cb2-199"></a></span>
+<span id="cb2-200"><a href="#cb2-200"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-201"><a href="#cb2-201"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-202"><a href="#cb2-202"></a></span>
+<span id="cb2-203"><a href="#cb2-203"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-204"><a href="#cb2-204"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-205"><a href="#cb2-205"></a></span>
+<span id="cb2-206"><a href="#cb2-206"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-207"><a href="#cb2-207"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-208"><a href="#cb2-208"></a></span>
+<span id="cb2-209"><a href="#cb2-209"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-210"><a href="#cb2-210"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-211"><a href="#cb2-211"></a></span>
+<span id="cb2-212"><a href="#cb2-212"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-213"><a href="#cb2-213"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-214"><a href="#cb2-214"></a></span>
+<span id="cb2-215"><a href="#cb2-215"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-216"><a href="#cb2-216"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-217"><a href="#cb2-217"></a></span>
+<span id="cb2-218"><a href="#cb2-218"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-219"><a href="#cb2-219"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-220"><a href="#cb2-220"></a><span class="kw">colnames</span>(my_table_<span class="dv">2</span>) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;MSE&quot;</span>, <span class="st">&quot;cv_err&quot;</span>)</span>
+<span id="cb2-221"><a href="#cb2-221"></a><span class="kw">rownames</span>(my_table_<span class="dv">2</span>) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;4&quot;</span>, <span class="st">&quot;5&quot;</span>, <span class="st">&quot;6&quot;</span>, <span class="st">&quot;7&quot;</span>, <span class="st">&quot;8&quot;</span>, <span class="st">&quot;9&quot;</span>, <span class="st">&quot;10&quot;</span>, <span class="st">&quot;11&quot;</span>, <span class="st">&quot;12&quot;</span>, <span class="st">&quot;13&quot;</span>, <span class="st">&quot;14&quot;</span>, <span class="st">&quot;15&quot;</span>, <span class="st">&quot;16&quot;</span>, <span class="st">&quot;17&quot;</span>, <span class="st">&quot;18&quot;</span>, <span class="st">&quot;19&quot;</span>, <span class="st">&quot;20&quot;</span>, <span class="st">&quot;21&quot;</span>, <span class="st">&quot;22&quot;</span>, <span class="st">&quot;23&quot;</span>, <span class="st">&quot;24&quot;</span>, <span class="st">&quot;25&quot;</span>, <span class="st">&quot;26&quot;</span>, <span class="st">&quot;27&quot;</span>, <span class="st">&quot;28&quot;</span>, <span class="st">&quot;29&quot;</span>, <span class="st">&quot;30&quot;</span>)</span>
+<span id="cb2-222"><a href="#cb2-222"></a></span>
+<span id="cb2-223"><a href="#cb2-223"></a>my_table_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">data.frame</span>()</span>
+<span id="cb2-224"><a href="#cb2-224"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">30</span>) {</span>
+<span id="cb2-225"><a href="#cb2-225"></a>  result &lt;-<span class="st"> </span><span class="kw">my_rf_cv</span>(<span class="dt">k =</span> <span class="dv">10</span>)</span>
+<span id="cb2-226"><a href="#cb2-226"></a>  my_table_<span class="dv">3</span>[i,<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">unlist</span>(result)</span>
+<span id="cb2-227"><a href="#cb2-227"></a>  my_table_<span class="dv">3</span>[i,<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">unlist</span>(result) <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(my_penguins)</span>
+<span id="cb2-228"><a href="#cb2-228"></a>}</span>
+<span id="cb2-229"><a href="#cb2-229"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-230"><a href="#cb2-230"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-231"><a href="#cb2-231"></a></span>
+<span id="cb2-232"><a href="#cb2-232"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-233"><a href="#cb2-233"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-234"><a href="#cb2-234"></a></span>
+<span id="cb2-235"><a href="#cb2-235"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-236"><a href="#cb2-236"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-237"><a href="#cb2-237"></a></span>
+<span id="cb2-238"><a href="#cb2-238"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-239"><a href="#cb2-239"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-240"><a href="#cb2-240"></a></span>
+<span id="cb2-241"><a href="#cb2-241"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-242"><a href="#cb2-242"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-243"><a href="#cb2-243"></a></span>
+<span id="cb2-244"><a href="#cb2-244"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-245"><a href="#cb2-245"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-246"><a href="#cb2-246"></a></span>
+<span id="cb2-247"><a href="#cb2-247"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-248"><a href="#cb2-248"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-249"><a href="#cb2-249"></a></span>
+<span id="cb2-250"><a href="#cb2-250"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-251"><a href="#cb2-251"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-252"><a href="#cb2-252"></a></span>
+<span id="cb2-253"><a href="#cb2-253"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-254"><a href="#cb2-254"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-255"><a href="#cb2-255"></a></span>
+<span id="cb2-256"><a href="#cb2-256"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-257"><a href="#cb2-257"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-258"><a href="#cb2-258"></a></span>
+<span id="cb2-259"><a href="#cb2-259"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-260"><a href="#cb2-260"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-261"><a href="#cb2-261"></a></span>
+<span id="cb2-262"><a href="#cb2-262"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-263"><a href="#cb2-263"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-264"><a href="#cb2-264"></a></span>
+<span id="cb2-265"><a href="#cb2-265"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-266"><a href="#cb2-266"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-267"><a href="#cb2-267"></a></span>
+<span id="cb2-268"><a href="#cb2-268"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-269"><a href="#cb2-269"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-270"><a href="#cb2-270"></a></span>
+<span id="cb2-271"><a href="#cb2-271"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-272"><a href="#cb2-272"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-273"><a href="#cb2-273"></a></span>
+<span id="cb2-274"><a href="#cb2-274"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-275"><a href="#cb2-275"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-276"><a href="#cb2-276"></a></span>
+<span id="cb2-277"><a href="#cb2-277"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-278"><a href="#cb2-278"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-279"><a href="#cb2-279"></a></span>
+<span id="cb2-280"><a href="#cb2-280"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-281"><a href="#cb2-281"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-282"><a href="#cb2-282"></a></span>
+<span id="cb2-283"><a href="#cb2-283"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-284"><a href="#cb2-284"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-285"><a href="#cb2-285"></a></span>
+<span id="cb2-286"><a href="#cb2-286"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-287"><a href="#cb2-287"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-288"><a href="#cb2-288"></a></span>
+<span id="cb2-289"><a href="#cb2-289"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-290"><a href="#cb2-290"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-291"><a href="#cb2-291"></a></span>
+<span id="cb2-292"><a href="#cb2-292"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-293"><a href="#cb2-293"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-294"><a href="#cb2-294"></a></span>
+<span id="cb2-295"><a href="#cb2-295"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-296"><a href="#cb2-296"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-297"><a href="#cb2-297"></a></span>
+<span id="cb2-298"><a href="#cb2-298"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-299"><a href="#cb2-299"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-300"><a href="#cb2-300"></a></span>
+<span id="cb2-301"><a href="#cb2-301"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-302"><a href="#cb2-302"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-303"><a href="#cb2-303"></a></span>
+<span id="cb2-304"><a href="#cb2-304"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-305"><a href="#cb2-305"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-306"><a href="#cb2-306"></a></span>
+<span id="cb2-307"><a href="#cb2-307"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-308"><a href="#cb2-308"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-309"><a href="#cb2-309"></a></span>
+<span id="cb2-310"><a href="#cb2-310"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-311"><a href="#cb2-311"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-312"><a href="#cb2-312"></a></span>
+<span id="cb2-313"><a href="#cb2-313"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-314"><a href="#cb2-314"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-315"><a href="#cb2-315"></a></span>
+<span id="cb2-316"><a href="#cb2-316"></a><span class="co">#&gt; Warning in prediction_result - body_mass_g: longer object length is not a</span></span>
+<span id="cb2-317"><a href="#cb2-317"></a><span class="co">#&gt; multiple of shorter object length</span></span>
+<span id="cb2-318"><a href="#cb2-318"></a><span class="kw">colnames</span>(my_table_<span class="dv">3</span>) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;MSE&quot;</span>, <span class="st">&quot;cv_err&quot;</span>)</span>
+<span id="cb2-319"><a href="#cb2-319"></a><span class="kw">rownames</span>(my_table_<span class="dv">3</span>) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;4&quot;</span>, <span class="st">&quot;5&quot;</span>, <span class="st">&quot;6&quot;</span>, <span class="st">&quot;7&quot;</span>, <span class="st">&quot;8&quot;</span>, <span class="st">&quot;9&quot;</span>, <span class="st">&quot;10&quot;</span>, <span class="st">&quot;11&quot;</span>, <span class="st">&quot;12&quot;</span>, <span class="st">&quot;13&quot;</span>, <span class="st">&quot;14&quot;</span>, <span class="st">&quot;15&quot;</span>, <span class="st">&quot;16&quot;</span>, <span class="st">&quot;17&quot;</span>, <span class="st">&quot;18&quot;</span>, <span class="st">&quot;19&quot;</span>, <span class="st">&quot;20&quot;</span>, <span class="st">&quot;21&quot;</span>, <span class="st">&quot;22&quot;</span>, <span class="st">&quot;23&quot;</span>, <span class="st">&quot;24&quot;</span>, <span class="st">&quot;25&quot;</span>, <span class="st">&quot;26&quot;</span>, <span class="st">&quot;27&quot;</span>, <span class="st">&quot;28&quot;</span>, <span class="st">&quot;29&quot;</span>, <span class="st">&quot;30&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="co">#&gt; </span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co">#&gt; Attaching package: &#39;ggplot2&#39;</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co">#&gt; The following object is masked from &#39;package:randomForest&#39;:</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt; </span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt;     margin</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="kw">library</span>(readr)</span>
+<span id="cb3-8"><a href="#cb3-8"></a>x &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(my_table_<span class="dv">1</span><span class="op">$</span>MSE)</span>
+<span id="cb3-9"><a href="#cb3-9"></a>y &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(my_table_<span class="dv">1</span><span class="op">$</span>cv_err)</span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#plot for k=2</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a>graph_<span class="dv">1</span>&lt;-<span class="st"> </span><span class="kw">ggplot</span>(my_table_<span class="dv">1</span>, <span class="kw">aes</span>(<span class="dt">x=</span>MSE, <span class="dt">y=</span>cv_err)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_boxplot</span>(<span class="dt">outlier.colour=</span><span class="st">&quot;red&quot;</span>, <span class="dt">outlier.shape=</span><span class="dv">8</span>, <span class="dt">outlier.size=</span><span class="dv">4</span>)</span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#plot for k=5</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a>graph_<span class="dv">2</span>&lt;-<span class="st"> </span><span class="kw">ggplot</span>(my_table_<span class="dv">2</span>, <span class="kw">aes</span>(<span class="dt">x=</span>MSE, <span class="dt">y=</span>cv_err)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_boxplot</span>(<span class="dt">outlier.colour=</span><span class="st">&quot;red&quot;</span>, <span class="dt">outlier.shape=</span><span class="dv">8</span>, <span class="dt">outlier.size=</span><span class="dv">4</span>)</span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="co">#plot for k=10</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a>graph_<span class="dv">3</span>&lt;-<span class="st"> </span><span class="kw">ggplot</span>(my_table_<span class="dv">3</span>, <span class="kw">aes</span>(<span class="dt">x=</span>MSE, <span class="dt">y=</span>cv_err)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_boxplot</span>(<span class="dt">outlier.colour=</span><span class="st">&quot;red&quot;</span>, <span class="dt">outlier.shape=</span><span class="dv">8</span>, <span class="dt">outlier.size=</span><span class="dv">4</span>)</span>
+<span id="cb3-16"><a href="#cb3-16"></a> <span class="kw">ggsave</span>(<span class="dt">path =</span> <span class="st">&quot;../Output/Figures&quot;</span>, <span class="dt">filename =</span> <span class="st">&quot;graph_1.jpg&quot;</span>)</span>
+<span id="cb3-17"><a href="#cb3-17"></a><span class="co">#&gt; Saving 3 x 3 in image</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a><span class="co">#&gt; Warning: Continuous x aesthetic -- did you forget aes(group=...)?</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a> <span class="kw">ggsave</span>(<span class="dt">path =</span> <span class="st">&quot;../Output/Figures&quot;</span>, <span class="dt">filename =</span> <span class="st">&quot;graph_2.jpg&quot;</span>)</span>
+<span id="cb3-20"><a href="#cb3-20"></a><span class="co">#&gt; Saving 3 x 3 in image</span></span>
+<span id="cb3-21"><a href="#cb3-21"></a><span class="co">#&gt; Warning: Continuous x aesthetic -- did you forget aes(group=...)?</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a> <span class="kw">ggsave</span>(<span class="dt">path =</span> <span class="st">&quot;../Output/Figures&quot;</span>, <span class="dt">filename =</span> <span class="st">&quot;graph_3.jpg&quot;</span>)</span>
+<span id="cb3-23"><a href="#cb3-23"></a><span class="co">#&gt; Saving 3 x 3 in image</span></span>
+<span id="cb3-24"><a href="#cb3-24"></a><span class="co">#&gt; Warning: Continuous x aesthetic -- did you forget aes(group=...)?</span></span>
+<span id="cb3-25"><a href="#cb3-25"></a> my_table_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(my_table_<span class="dv">1</span>)</span>
+<span id="cb3-26"><a href="#cb3-26"></a> my_table_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(my_table_<span class="dv">2</span>)</span>
+<span id="cb3-27"><a href="#cb3-27"></a> my_table_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(my_table_<span class="dv">3</span>)</span>
+<span id="cb3-28"><a href="#cb3-28"></a></span>
+<span id="cb3-29"><a href="#cb3-29"></a><span class="co">#simulation &lt;- write_csv(c(my_table_1,my_table_2, my_table_3), file = &quot;../Output/Result/simulation.csv&quot;, col_names = c(1,2,3,4,5,6) )</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>average_cverr_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">as.numeric</span>(my_table_<span class="dv">1</span>[<span class="dv">2</span>,]))</span>
+<span id="cb4-2"><a href="#cb4-2"></a>sd_cverr_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">sd</span>(<span class="kw">as.numeric</span>(my_table_<span class="dv">1</span>[<span class="dv">2</span>,]))</span>
+<span id="cb4-3"><a href="#cb4-3"></a>average_cverr_<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">as.numeric</span>(my_table_<span class="dv">2</span>[<span class="dv">2</span>,]))</span>
+<span id="cb4-4"><a href="#cb4-4"></a>sd_cverr_<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">sd</span>(<span class="kw">as.numeric</span>(my_table_<span class="dv">2</span>[<span class="dv">2</span>,]))</span>
+<span id="cb4-5"><a href="#cb4-5"></a>average_cverr_<span class="dv">10</span> &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">as.numeric</span>(my_table_<span class="dv">3</span>[<span class="dv">2</span>,]))</span>
+<span id="cb4-6"><a href="#cb4-6"></a>sd_cverr_<span class="dv">10</span> &lt;-<span class="st"> </span><span class="kw">sd</span>(<span class="kw">as.numeric</span>(my_table_<span class="dv">3</span>[<span class="dv">2</span>,]))</span>
+<span id="cb4-7"><a href="#cb4-7"></a>row_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">cbind</span>(average_cverr_<span class="dv">2</span>, sd_cverr_<span class="dv">2</span>)</span>
+<span id="cb4-8"><a href="#cb4-8"></a>row_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">cbind</span>(average_cverr_<span class="dv">5</span>, sd_cverr_<span class="dv">5</span>)</span>
+<span id="cb4-9"><a href="#cb4-9"></a>row_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">cbind</span>(average_cverr_<span class="dv">10</span>, sd_cverr_<span class="dv">10</span>)</span>
+<span id="cb4-10"><a href="#cb4-10"></a>cv_table &lt;-<span class="st"> </span><span class="kw">rbind</span>(row_<span class="dv">1</span>, row_<span class="dv">2</span>, row_<span class="dv">3</span>)</span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="kw">rownames</span>(cv_table) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;k = 2&quot;</span>, <span class="st">&quot;k = 5&quot;</span>, <span class="st">&quot;k = 10&quot;</span>)</span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="kw">colnames</span>(cv_table) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;average&quot;</span>, <span class="st">&quot;sd&quot;</span>)</span>
+<span id="cb4-13"><a href="#cb4-13"></a>cv_table</span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt;         average       sd</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt; k = 2  222080.7 312248.8</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt; k = 5  222116.2 312298.7</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="co">#&gt; k = 10 229919.6 323270.4</span></span></code></pre></div>
+<p>We can see from the table, the average and the standard deviation of ev_err become smaller as the value of k gets larger. This is because as the k gets larger, we test our model for more times, so that it becomes more accurate. Thus the values of cv_err get smaller.</p>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
