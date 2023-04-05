@@ -9,6 +9,7 @@
 This is a R package that utilized cross-validation algorithm and hypothesis testing mechanism to produce prediction and inference. It includes four functions: my_t.test, my_lm, my_knn_cv, my_rf_cv. In regards to installation instruction, please see the installation section below. The documentation of each function can be accessed through ?function_name(). This was created in September - December 2020. If you have any question, feel free to reach out to us: harperzhu@yahoo.com , sz94@uw.edu
 
 
+
 ## Installation ##
 
 
