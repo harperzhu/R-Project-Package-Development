@@ -15,20 +15,28 @@ The vignette demonstrates example usage of all main functions.
 Please file an issue if you have a request for a tutorial that is not currently included. 
 You can see the vignette by using the following code (note that this requires a TeX installation to view properly):
 ``` r
-# install.packages("devtools")
-devtools::install_github("harperzhu/projectpackage", build_vignette = TRUE, build_opts = c())
-library(projectpackage)
-# Use this to view the vignette in the projectpackage HTML help
-help(package = "projectpackage", help_type = "html")
-# Use this to view the vignette as an isolated HTML file
-utils::browseVignettes(package = "projectpackage")
+
+
 ```
 
 ## Installation ##
 
 To download the projectpackage package, use the code below.
 ```{r}
-# install.packages("devtools")
-devtools::install_github("harperzhu/projectpackage")
+install.packages("devtools")
+devtools::install_github("harperzhu/projectpackage", build_vignette = TRUE, build_opts = c())
 library(projectpackage)
+```
+
+
+## Exeample Usage ##
+
+```{r}
+# Use this to view the vignette in the projectpackage HTML help
+help(package = "projectpackage", help_type = "html")
+
+
+# Use this to view the vignette as an isolated HTML file
+utils::browseVignettes(package = "projectpackage")
+
 ```
