@@ -1,0 +1,23 @@
+Package: projectpackage
+Title: Package Building 
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Harper",
+           family = "Zhu",
+           role = c("aut", "cre"),
+           email = "harperzhu@yahoo.com")
+Description: This package is used to predict the classification of a variable and print out misclassification error.
+License: GPL-3
+Imports: stats, dplyr, magrittr, randomForest, class, tibble,tidyr, randomForest, ggplot2
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Suggests: 
+    testthat,
+    covr,
+    knitr,
+    rmarkdown
+Depends: 
+    R (>= 2.10)
+VignetteBuilder: knitr
